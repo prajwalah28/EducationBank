@@ -91,7 +91,112 @@ const expandableSectionsData = [
           content: "This is the content of the Big O Wrap Up section."
         }
       ]
-    }
+    },
+    {
+      title: "Section 6: Trees",
+      content: [
+        {
+          title: "Big O: Intro",
+          content: "This is the content of the Big O Intro section."
+        },
+        {
+          title: "Big O: Worst Case",
+          content: "This is the content of the Big O Worst Case section."
+        },
+        {
+          title: "Big O: O(n)",
+          content: "This is the content of the Big O O(n) section."
+        },
+        {
+          title: "Big O: Wrap Up",
+          content: "This is the content of the Big O Wrap Up section."
+        }
+      ]
+    },
+    {
+      title: "Section 7: Graphs",
+      content: [
+        {
+          title: "Big O: Intro",
+          content: "This is the content of the Big O Intro section."
+        },
+        {
+          title: "Big O: Worst Case",
+          content: "This is the content of the Big O Worst Case section."
+        },
+        {
+          title: "Big O: O(n)",
+          content: "This is the content of the Big O O(n) section."
+        },
+        {
+          title: "Big O: Wrap Up",
+          content: "This is the content of the Big O Wrap Up section."
+        }
+      ]
+    },
+    {
+      title: "Section 8: Hash Tables",
+      content: [
+        {
+          title: "Big O: Intro",
+          content: "This is the content of the Big O Intro section."
+        },
+        {
+          title: "Big O: Worst Case",
+          content: "This is the content of the Big O Worst Case section."
+        },
+        {
+          title: "Big O: O(n)",
+          content: "This is the content of the Big O O(n) section."
+        },
+        {
+          title: "Big O: Wrap Up",
+          content: "This is the content of the Big O Wrap Up section."
+        }
+      ]
+    },
+    {
+      title: "Section 9: Heaps",
+      content: [
+        {
+          title: "Big O: Intro",
+          content: "This is the content of the Big O Intro section."
+        },
+        {
+          title: "Big O: Worst Case",
+          content: "This is the content of the Big O Worst Case section."
+        },
+        {
+          title: "Big O: O(n)",
+          content: "This is the content of the Big O O(n) section."
+        },
+        {
+          title: "Big O: Wrap Up",
+          content: "This is the content of the Big O Wrap Up section."
+        }
+      ]
+    },
+    {
+      title: "Section 10: Recursion",
+      content: [
+        {
+          title: "Big O: Intro",
+          content: "This is the content of the Big O Intro section."
+        },
+        {
+          title: "Big O: Worst Case",
+          content: "This is the content of the Big O Worst Case section."
+        },
+        {
+          title: "Big O: O(n)",
+          content: "This is the content of the Big O O(n) section."
+        },
+        {
+          title: "Big O: Wrap Up",
+          content: "This is the content of the Big O Wrap Up section."
+        }
+      ]
+    },
   ];
   
   export default expandableSectionsData;

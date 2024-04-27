@@ -53,7 +53,7 @@ const Home = () => {
       <HomeComponents />
       <Instructor/>
         <Ratings/>
-      <CourseDetails/>
+      {/* <CourseDetails/> */}
 
     </>
   );

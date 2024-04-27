@@ -1,13 +1,18 @@
-// Header.jsx
-
-import React, { useState } from 'react';
 import { Icons } from "../../assets/assets";
 import { Link } from "react-router-dom";
 import Logout from "../../pages/Logout/Logout";
+import { ContextProvider, UserContext } from "../../Context/LoginContext";
+import React, { useContext, useState } from "react";
 
 const Header = ({ cartCount }) => {
   const [show, setShow] = useState(true);
   const [profile, setProfile] = useState(false);
+  const { datahide, setdatahide } = useContext(UserContext);
+
+  const handleLogout = () => {
+    setProfile(false); // Set profile to false
+    setdatahide(true); // Set datahide to true
+  };
 
   return (
     <div className="mb-24">
@@ -19,7 +24,9 @@ const Header = ({ cartCount }) => {
             </div>
           </Link>
 
-          <Link to='/courses'><h1>Categories</h1></Link>
+          <Link to="/courses">
+            <h1>Categories</h1>
+          </Link>
           <div className="flex items-center border border-gray-800 rounded-3xl px-2 gap-3 bg-slate-300">
             <Icons.FaSearch />
             <input
@@ -33,23 +40,24 @@ const Header = ({ cartCount }) => {
 
         <div className="flex gap-3 items-center">
           <Link to="/cart">
-          <div>
-            <Icons.FiShoppingCart className="text-3xl" />
-            <span>{cartCount}</span>
-          </div>
+            <div>
+              <Icons.FiShoppingCart className="text-3xl" />
+              <span>{cartCount}</span>
+            </div>
           </Link>
-         
 
-          {show ? (
+          {datahide ? (
             <>
-              <button
-                className="border border-black px-5 py-2 rounded-sm"
-                onClick={() => {
-                  setShow(!show);
-                }}
-              >
-                Log in
-              </button>
+              <Link to="/login">
+                <button
+                  className="border border-black px-5 py-2 rounded-sm"
+                  onClick={() => {
+                    setShow(!show);
+                  }}
+                >
+                  Log in
+                </button>
+              </Link>
 
               <Link to="/signup">
                 <button className="border border-black px-5 py-2 rounded-sm bg-blue-950 text-white">
@@ -68,6 +76,7 @@ const Header = ({ cartCount }) => {
                   className="bg-blue-950 px-4 py-3 rounded-full text-white cursor-pointer"
                   onClick={() => {
                     setProfile(!profile);
+                    // setdatahide(!datahide);
                   }}
                 >
                   <h1>RJ</h1>
@@ -77,14 +86,16 @@ const Header = ({ cartCount }) => {
           )}
         </div>
       </div>
-      <div className="">{profile ? (
-        <>
-          {" "}
-          <Logout />{" "}
-        </>
-      ) : (
-        <></>
-      )}</div>
+      <div className="">
+        {profile ? (
+          <>
+            {" "}
+            <Logout handleLogout={handleLogout} />{" "}
+          </>
+        ) : (
+          <></>
+        )}
+      </div>
     </div>
   );
 };

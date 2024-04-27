@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Icons } from "../../assets/assets";
 import { Link as Likns } from "react-scroll";
 import { Link } from "react-router-dom";
+import { ContextProvider, UserContext } from "../../Context/LoginContext";
 
 const Authentication = () => {
   const [hide, SetHide] = useState(false);
   const [show, setshow] = useState(false);
+
+  const { datahide, setdatahide } = useContext(UserContext);
 
   const ChangeIcon = () => {
     SetHide(!hide);
@@ -54,24 +57,21 @@ const Authentication = () => {
           </div>
         </div>
 
-        <div>
-          <input type="submit" value="Submit" />
+        <div className="mx-auto  w-44 px-2">
+          <h1>
+            or{" "}
+            <span className="font-bold text-orange-500">Forget Password</span>
+          </h1>
         </div>
-      </form>
-      <div className="mx-auto  w-44 px-2">
-        <h1>
-          or <span className="font-bold text-orange-500">Forget Password</span>
-        </h1>
-      </div>
 
-      <div
-        className="bg-blue-950 "
-        onClick={() => {
-          setshow(!show);
-        }}
-      >
-        <h1 className="text-center py-4 text-white  mt-4">Log in</h1>
-      </div>
+       
+          <Link to={"/"}>
+            <input type="submit" value="Login" className="bg-blue-950 text-center text-white py-3 px-32 mt-2 cursor-pointer"  onClick={() => {
+            setdatahide(!datahide);
+          }} />
+          </Link>
+       
+      </form>
 
       <div className="mt-4">
         <hr />
@@ -89,4 +89,3 @@ const Authentication = () => {
 };
 
 export default Authentication;
-1;

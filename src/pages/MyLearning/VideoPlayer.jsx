@@ -15,7 +15,7 @@ const VideoPlayer = () => {
       ></iframe>
     </div>
     <Navbar/>
-    <ExpandableSection/>
+
 
     </>
   );
