@@ -1,47 +1,105 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Icons } from "../../assets/assets";
 import { Link } from "react-router-dom";
 
 function Signup() {
   const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch("http://192.168.1.9:8080/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          mode: "no-cors",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Signup failed");
+      }
+
+      // Clear form data on successful signup
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+      });
+
+      console.log("Signup successful");
+    } catch (error) {
+      setError("Signup failed. Please try again.");
+      console.error("Error:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="flex flex-col content-center">
         <h1 className="mb-2 font-bold">Sign up and Start Learning</h1>
         <form
           className="flex flex-col place-content-center gap-5"
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
+          onSubmit={handleSubmit}
         >
           <input
             className="w-98 outline-0 border-2 px-3 py-5 placeholder:font-bold placeholder-gray-900 border-orange-300 rounded"
             type="text"
             placeholder="Full Name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
             required
-          ></input>
+          />
 
           <input
             className="w-98 outline-0 border-2 px-3 py-5 placeholder:font-bold placeholder-gray-900 border-orange-300 rounded"
             type="email"
             placeholder="Email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
             required
-          ></input>
+          />
 
           <div className="flex items-center border-2 border-orange-300 w-98 outline-0  px-3 py-5 gap-8  rounded ">
             <input
               className=" placeholder:font-bold placeholder-gray-900 outline-0 w-80"
               type={showPassword ? "text" : "password"}
               placeholder="Password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
               required
-            ></input>
+            />
             <button
               className="float-end w-6"
+              type="button"
               onClick={togglePasswordVisibility}
             >
               {showPassword ? (
@@ -61,15 +119,14 @@ function Signup() {
               </span>
             </h3>
 
-            <Link to="/account">
-              {" "}
-              <button
-                className="px-44 py-5 bg-blue-950 text-white rounded drop-shadow-md "
-                type="submit"
-              >
-                Sign Up
-              </button>
-            </Link>
+            <button
+              className="px-44 py-5 bg-blue-950 text-white rounded drop-shadow-md "
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? "Signing Up..." : "Sign Up"}
+            </button>
+            {error && <p className="text-red-500 mt-2">{error}</p>}
           </div>
         </form>
 
