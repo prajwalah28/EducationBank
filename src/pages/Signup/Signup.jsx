@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Icons } from "../../assets/assets";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { HashLoader } from "react-spinners";
 
 function Signup() {
+
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -11,6 +16,17 @@ function Signup() {
   });
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
+
+  useEffect(() => {
+    if (showLoader) {
+      const timeout = setTimeout(() => {
+        setIsLoading(true);
+        navigate('/login');
+      }, 2000); // 3 seconds delay
+      return () => clearTimeout(timeout);
+    }
+  }, [showLoader]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,9 +62,10 @@ function Signup() {
         password: "",
       });
 
-      console.log("Signup successful");
+      toast.success("Signup successful");
+      setShowLoader(true);
     } catch (error) {
-      setError("Signup failed. Please try again.");
+      toast.error("Signup failed. Please try again.");
       console.error("Error:", error);
     } finally {
       setIsLoading(false);
@@ -119,16 +136,28 @@ function Signup() {
               </span>
             </h3>
 
+            
             <button
-              className="px-44 py-5 bg-blue-950 text-white rounded drop-shadow-md "
-              type="submit"
-              disabled={isLoading}
-            >
-              {isLoading ? "Signing Up..." : "Sign Up"}
-            </button>
+            className="px-44 py-5 bg-blue-950 text-white rounded drop-shadow-md relative" // Add relative class
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <HashLoader
+                color={"#FFFFFF"}
+                loading={true}
+                size={25}
+                css={"position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)"} // Center the loader
+              />
+            ) : (
+              "Sign Up"
+            )}
+          </button>
             {error && <p className="text-red-500 mt-2">{error}</p>}
           </div>
         </form>
+
+        <ToastContainer />
 
         <div className="w-98 bg-gray-300 h-0.5 mt-8 "></div>
 
