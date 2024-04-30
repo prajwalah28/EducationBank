@@ -2,13 +2,15 @@ import React, { useContext, useState, useEffect } from "react";
 import { Icons } from "../../assets/assets";
 import { Link as Likns } from "react-scroll";
 import { Link } from "react-router-dom";
-import { ContextProvider, UserContext } from "../../Context/LoginContext";
+import { UserContext } from "../../Context/LoginContext"; // Import UserContext
 import { Base_URL } from "../../config";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 const Authentication = () => {
+  const { setUserEmail } = useContext(UserContext); // Destructure setUserEmail from UserContext
   const navigate = useNavigate();
   const [hide, SetHide] = useState(false);
   const [show, setShow] = useState(false);
@@ -35,9 +37,12 @@ const Authentication = () => {
         },
       });
 
+
       if (response.ok) {
         // If login is successful, set loginSuccess to true
         setLoginSuccess(true);
+        // Set user's email in the context
+        setUserEmail(email);
         toast.success("Login successful");
       } else {
         // If login fails, handle error appropriately
@@ -78,49 +83,48 @@ const Authentication = () => {
       </div>
 
       <form action="" onSubmit={Subform}>
-  <div className="border-2 border-orange-500 mb-5 h-16 flex items-center ">
-    <input
-      type="email" // corrected to lowercase 'email'
-      name="email" // added name attribute
-      placeholder="Email"
-      className="px-5 outline-none"
-      required
-    />
-  </div>
+        <div className="border-2 border-orange-500 mb-5 h-16 flex items-center ">
+          <input
+            type="email" // corrected to lowercase 'email'
+            name="email" // added name attribute
+            placeholder="Email"
+            className="px-5 outline-none"
+            required
+          />
+        </div>
 
-  <div className="border-2 border-orange-500 mb-5 h-16 flex items-center ">
-    <input
-      type={hide ? "text" : "password"}
-      name="password" // added name attribute
-      placeholder="Password"
-      className="px-5 outline-none"
-      required
-    />
+        <div className="border-2 border-orange-500 mb-5 h-16 flex items-center ">
+          <input
+            type={hide ? "text" : "password"}
+            name="password" // added name attribute
+            placeholder="Password"
+            className="px-5 outline-none"
+            required
+          />
 
-    <div onClick={ChangeIcon} className="text-2xl">
-      {hide ? <Icons.BiSolidShow /> : <Icons.BiSolidHide />}
-    </div>
-  </div>
+          <div onClick={ChangeIcon} className="text-2xl">
+            {hide ? <Icons.BiSolidShow /> : <Icons.BiSolidHide />}
+          </div>
+        </div>
 
-  <div className="mx-auto w-44 px-2">
-    <h1>
-      or{" "}
-      <span className="font-bold text-orange-500">Forget Password</span>
-    </h1>
-  </div>
+        <div className="mx-auto w-44 px-2">
+          <h1>
+            or{" "}
+            <span className="font-bold text-orange-500">Forget Password</span>
+          </h1>
+        </div>
 
-  <div>
-  <input
-    type="submit"
-    value="Login"
-    className="bg-blue-950 text-center text-white py-3 px-32 mt-2 cursor-pointer"
-    onClick={() => {
-      setdatahide(!datahide);
-    }}
-  />
-  </div>
-</form>
-
+        <div>
+          <input
+            type="submit"
+            value="Login"
+            className="bg-blue-950 text-center text-white py-3 px-32 mt-2 cursor-pointer"
+            onClick={() => {
+              setdatahide(!datahide);
+            }}
+          />
+        </div>
+      </form>
 
       <div className="mt-4">
         <hr />
