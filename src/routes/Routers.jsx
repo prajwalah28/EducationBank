@@ -10,6 +10,7 @@ import CourseDetails from "../pages/CourseDetails/CourseDetails";
 import MyLearning from "../pages/MyLearning/MyLearning";
 import VideoPlayer from "../pages/MyLearning/VideoPlayer";
 import PaymentPage from "../pages/PaymentPage/PaymentPage";
+import HomeMain from "../pages/HomeMain/HomeMain";
 
 const Routers = () => {
   return (
@@ -29,7 +30,7 @@ const Routers = () => {
         <Route path="/VideoPlayer" element={<VideoPlayer/>} />
         <Route path="/Payment" element={<PaymentPage/>} />
         <Route path="/Payment" element={<PaymentPage/>} />
-
+        <Route path="/homemain" element={<HomeMain/>} />
     
       </Routes>
       
