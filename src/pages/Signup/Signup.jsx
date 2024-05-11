@@ -42,7 +42,7 @@ function Signup() {
     setError(null);
 
     try {
-      const response = await fetch("http://192.168.1.9:8080/api/signup", {
+      const response = await fetch("http://192.168.1.41:8080/api/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

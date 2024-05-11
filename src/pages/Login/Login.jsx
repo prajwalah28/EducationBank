@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Authentication = () => {
+  const { setUserEmail, setUserName } = useContext(UserContext);
   const navigate = useNavigate();
   const [hide, SetHide] = useState(false);
   const [show, setShow] = useState(false);
@@ -19,48 +20,52 @@ const Authentication = () => {
     SetHide(!hide);
   };
 
-  const Subform = async (e) => {
-    e.preventDefault();
+ // Inside Subform function in Authentication component
+const Subform = async (e) => {
+  e.preventDefault();
 
-    // Extract email and password from the form
-    const email = e.target.elements.email.value;
-    const password = e.target.elements.password.value;
+  // Extract email and password from the form
+  const email = e.target.elements.email.value;
+  const password = e.target.elements.password.value;
 
-    try {
-      const response = await fetch(`http://192.168.1.9:8080/api/login`, {
-        method: "POST",
-        body: JSON.stringify({ email, password }), // Send JSON data
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
 
-      if (response.ok) {
-        // If login is successful, set loginSuccess to true
-        setLoginSuccess(true);
-        toast.success("Login successful");
-      } else {
-        // If login fails, handle error appropriately
-        toast.error("Login failed");
-      }
-    } catch (error) {
-      // Handle any network or other errors
-      console.error("Error:", error);
-      toast.error("An error occurred while processing your request.");
+  try {
+    const response = await fetch(`http://192.168.1.41:8080/api/login`, {
+      method: "POST",
+      body: JSON.stringify({ email, password }), // Send JSON data
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+
+    if (response.ok) {
+      // If login is successful, set loginSuccess to true
+      const responseData = await response.json();
+      const { name } = responseData; // Extract the name from the response
+      setLoginSuccess(true);
+      setUserEmail(email);
+      setUserName(name); // Set the user's name in the context
+      toast.success("Login successful");
+    } else {
+      // If login fails, handle error appropriately
+      toast.error("Login failed");
     }
-  };
+  } catch (error) {
+    // Handle any network or other errors
+    console.error("Error:", error);
+    toast.error("An error occurred while processing your request.");
+  }
+};
 
-  useEffect(() => {
-    if (loginSuccess) {
-      const timeout = setTimeout(() => {
-        navigate('/');
-      }, 2000); // 2-second delay
+useEffect(() => {
+  if (loginSuccess) {
+    const timeout = setTimeout(() => {
+      navigate('/');
+    }, 2000); // 2-second delay
 
-      return () => clearTimeout(timeout);
-    }
-  }, [loginSuccess, navigate]);
-  
-  
+    return () => clearTimeout(timeout);
+  }
+}, [loginSuccess, navigate]);
   return (
     <div className="w-80  px-2 py-3 mx-auto mt-16 font-bold">
       <div>

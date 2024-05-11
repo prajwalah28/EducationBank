@@ -8,6 +8,7 @@ const Header = ({ cartCount }) => {
   const [show, setShow] = useState(true);
   const [profile, setProfile] = useState(false);
   const { datahide, setdatahide } = useContext(UserContext);
+  const { userName, userEmail } = useContext(UserContext);
 
   const handleLogout = () => {
     setProfile(false); // Set profile to false
@@ -79,7 +80,8 @@ const Header = ({ cartCount }) => {
                     // setdatahide(!datahide);
                   }}
                 >
-                  <h1>RJ</h1>
+                <h1> {userName && userName.split(" ").map((name) => name[0].toUpperCase()).join("")}</h1>
+
                 </div>
               </div>
             </>
