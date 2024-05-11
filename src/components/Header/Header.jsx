@@ -17,7 +17,7 @@ const Header = ({ cartCount }) => {
 
   return (
     <div className="mb-24">
-      <div className="flex justify-between px-10 bg-gray-100 py-6 items-center font-bold shadow-xl shadow-bottom fixed top-0 w-full ">
+      <div className="fixed top-0 w-full bg-gray-100 shadow-xl py-6 px-10 flex justify-between items-center font-bold z-50">
         <div className="flex items-center gap-4">
           <Link to="/">
             <div className="flex cursor-pointer">
